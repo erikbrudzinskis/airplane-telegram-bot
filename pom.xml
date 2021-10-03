@@ -15,7 +15,7 @@
 	<description>Airplane Telegram Bot</description>
 	<properties>
 		<java.version>11</java.version>
-		<telegram.version>5.0.1</telegram.version>
+		<telegram.version>4.9.1</telegram.version>
 		<org.projectlombok.version>1.18.16</org.projectlombok.version>
 	</properties>
 	<dependencies>
@@ -45,6 +45,18 @@
 			<groupId>org.telegram</groupId>
 			<artifactId>telegrambotsextensions</artifactId>
 			<version>${telegram.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.telegram</groupId>
+			<artifactId>telegrambots-spring-boot-starter</artifactId>
+			<version>4.4.0.2</version>
+		</dependency>
+		<!-- PostgreSQL -->
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<scope>runtime</scope>
+			<version>42.2.8</version>
 		</dependency>
 		<dependency>
 			<groupId>org.projectlombok</groupId>
