@@ -54,12 +54,8 @@ public class Airplane {
         return name;
     }
 
-    public List<User> getUsers() {
-        return users;
-    }
-
-    public void setUsers(List<User> users) {
-        this.users = users;
+    public Integer getAirplaneId() {
+        return airplaneId;
     }
 
     @Override
