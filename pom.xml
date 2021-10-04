@@ -39,19 +39,16 @@
 		<dependency>
 			<groupId>org.telegram</groupId>
 			<artifactId>telegrambots</artifactId>
-			<scope>runtime</scope>
 			<version>${telegram.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.telegram</groupId>
 			<artifactId>telegrambotsextensions</artifactId>
-			<scope>runtime</scope>
 			<version>${telegram.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.telegram</groupId>
 			<artifactId>telegrambots-spring-boot-starter</artifactId>
-			<scope>runtime</scope>
 			<version>4.4.0.2</version>
 		</dependency>
 		<!-- PostgreSQL -->
