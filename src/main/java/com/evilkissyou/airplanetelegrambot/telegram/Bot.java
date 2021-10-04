@@ -1,13 +1,21 @@
 package com.evilkissyou.airplanetelegrambot.telegram;
 
+import static com.evilkissyou.airplanetelegrambot.constants.Constants.*;
+import static com.evilkissyou.airplanetelegrambot.constants.Constants.COMMAND_HELP;
+
 import com.evilkissyou.airplanetelegrambot.controller.MessageDispatcher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
+import org.telegram.telegrambots.meta.api.methods.commands.GetMyCommands;
+import org.telegram.telegrambots.meta.api.methods.commands.SetMyCommands;
 import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
+import org.telegram.telegrambots.meta.api.objects.commands.BotCommand;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
+import java.util.ArrayList;
+import java.util.List;
 
 public class Bot extends TelegramLongPollingBot {
     private String botToken;
@@ -18,6 +26,8 @@ public class Bot extends TelegramLongPollingBot {
 
     @Override
     public void onUpdateReceived(Update update) {
+        setCommands();
+
         Message message = null;
         String data = null;
         boolean hasCallback = false,
@@ -36,9 +46,12 @@ public class Bot extends TelegramLongPollingBot {
             data = message.getText();
         }
 
+        // Get the chat id and register new user, if chat id was not previously registered in db
+        String chatId = message.getChatId().toString();
+        messageDispatcher.registerNewUser(chatId);
+
         // Decide which method from messageDispatcher will be used depending on update type
         if (hasCallback || hasRegularMessage) {
-            String chatId = message.getChatId().toString();
             if (hasCallback) {
                 try {
                     execute(messageDispatcher.getResponseByCallback(chatId, data));
@@ -71,5 +84,20 @@ public class Bot extends TelegramLongPollingBot {
 
     public void setBotUsername(String botName) {
         this.botName = botName;
+    }
+
+    // Method sets commands for the triple-dot menu
+    private void setCommands() {
+        List<BotCommand> commandsList = new ArrayList<>();
+        commandsList.add(new BotCommand(COMMAND_NEXT, "Next"));
+        commandsList.add(new BotCommand(COMMAND_PROGRESS, "Statistics"));
+        commandsList.add(new BotCommand(COMMAND_RESET, "Reset"));
+        commandsList.add(new BotCommand(COMMAND_HELP, "Help"));
+        try {
+            execute(new SetMyCommands(commandsList));
+            execute(new GetMyCommands());
+        } catch (TelegramApiException e) {
+            e.printStackTrace();
+        }
     }
 }
