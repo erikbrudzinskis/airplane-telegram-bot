@@ -1,5 +1,6 @@
 package com.evilkissyou.airplanetelegrambot.telegram;
 
+import com.evilkissyou.airplanetelegrambot.controller.Keyboards;
 import com.evilkissyou.airplanetelegrambot.controller.MessageDispatcher;
 import com.evilkissyou.airplanetelegrambot.data.AirplaneRepository;
 import com.evilkissyou.airplanetelegrambot.data.UsersRepository;
@@ -24,6 +25,10 @@ public class BotConfig {
     @Autowired
     UsersRepository usersRepository;
 
+    @Autowired
+    Keyboards keyboards;
+
+
     @Bean
     public Bot bot() {
         Bot bot = new Bot();
@@ -35,6 +40,6 @@ public class BotConfig {
     @Bean
     @Scope("prototype")
     public MessageDispatcher messageDispatcher() {
-        return new MessageDispatcher(airplaneRepository, usersRepository);
+        return new MessageDispatcher(airplaneRepository, usersRepository, keyboards);
     }
 }
