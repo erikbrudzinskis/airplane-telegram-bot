@@ -1,6 +1,7 @@
 package com.evilkissyou.airplanetelegrambot.data;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -39,5 +40,13 @@ public class User {
 
     public void setAirplanes(List<Airplane> airplanes) {
         this.airplanes = airplanes;
+    }
+
+    public List<Integer> getCompletedAirplanesIds() {
+        List<Integer> completedIds = new ArrayList<>();
+        for (Airplane airplane : airplanes) {
+            completedIds.add(airplane.getAirplaneId());
+        }
+        return completedIds;
     }
 }
