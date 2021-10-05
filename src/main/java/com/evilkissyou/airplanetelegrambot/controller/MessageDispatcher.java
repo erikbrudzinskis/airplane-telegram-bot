@@ -94,7 +94,7 @@ public class MessageDispatcher {
         } else {
             airplane = airplaneRepository.findById(airplaneId).get();
         }
-        String text = null;
+        String text;
         ReplyKeyboard keyboard = keyboards.getDefaultKeyboard();
 
         switch (messageText) {
@@ -115,11 +115,17 @@ public class MessageDispatcher {
         return outMessage;
     }
 
-    public void registerNewUser(String chatId) {
+    public boolean registerNewUser(String chatId) {
         if (!usersRepository.existsUserByChatId(Integer.parseInt(chatId))) {
             User user = new User(Integer.parseInt(chatId));
             usersRepository.save(user);
+            return true;
         }
+        return false;
+    }
+
+    public SendMessage sendWelcomeMessage(String chatId) {
+        return new SendMessage(chatId, WELCOME);
     }
 
     private Airplane findNewRandomAirplane() {
