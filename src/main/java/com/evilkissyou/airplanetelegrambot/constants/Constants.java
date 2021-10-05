@@ -13,4 +13,5 @@ public final class Constants {
     public static final String DESCRIPTION = "This bot checks your knowledge about certain aircraft. " +
             "First, it gives you the name of an aircraft, so that you can try to remember the aircraft characteristics and looks. " +
             "Then, it shows you the answers with a pic.";
+    public static final String WELCOME = "Welcome to Airplane Telegram Bot! \n" + DESCRIPTION;
 }
