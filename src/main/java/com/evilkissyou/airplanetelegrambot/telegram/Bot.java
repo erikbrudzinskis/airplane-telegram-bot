@@ -48,20 +48,18 @@ public class Bot extends TelegramLongPollingBot {
 
         // Get the chat id and register new user and send welcome message, if chat id was not previously registered in db
         String chatId = message.getChatId().toString();
-        if (messageDispatcher.registerNewUser(chatId)) {
-            try {
-                execute(messageDispatcher.sendWelcomeMessage(chatId));
-            } catch (TelegramApiException e) {
-                e.printStackTrace();
-            }
-        }
-
 
         // Decide which method from messageDispatcher will be used depending on update type
         if (hasCallback || hasRegularMessage) {
             if (hasCallback) {
                 try {
                     execute(messageDispatcher.getResponseByCallback(chatId, data));
+                } catch (TelegramApiException e) {
+                    e.printStackTrace();
+                }
+            } else if (messageDispatcher.registerNewUser(chatId)) {
+                try {
+                    execute(messageDispatcher.sendWelcomeMessage(chatId));
                 } catch (TelegramApiException e) {
                     e.printStackTrace();
                 }

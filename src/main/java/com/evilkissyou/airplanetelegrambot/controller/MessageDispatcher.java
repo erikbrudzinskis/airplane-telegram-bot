@@ -125,7 +125,7 @@ public class MessageDispatcher {
     }
 
     public SendMessage sendWelcomeMessage(String chatId) {
-        return new SendMessage(chatId, WELCOME);
+        return new SendMessage(chatId, WELCOME).setReplyMarkup(keyboards.getDefaultKeyboard());
     }
 
     private Airplane findNewRandomAirplane() {
